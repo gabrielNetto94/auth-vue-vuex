@@ -13,38 +13,20 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto" v-if="usuarioLogado">
-        <li class="nav-item">
-          <router-link class="nav-link" to="/">Home</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/gerentes" class="nav-link"> Gerentes </router-link>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link" @click.prevent="efetuarLogout">Logout</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav mr-auto" v-else>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/login">Login</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/cadastre-se">
-            Registre-se
-          </router-link>
-        </li>
-      </ul>
+      <BarraNavegacaoLogado v-if="usuarioLogado"/>
+      <BarraNavegacaoDeslogado v-else />
     </div>
   </nav>
 </template>
 
 <script>
+import BarraNavegacaoLogado from "./BarraNavegacaoLogado.vue";
+import BarraNavegacaoDeslogado from "./BarraNavegacaoDeslogado.vue";
+
 export default {
-  methods: {
-    efetuarLogout() {
-      localStorage.removeItem("token");
-      this.$router.push({ name: "login" });
-    },
+  components: {
+    BarraNavegacaoLogado,
+    BarraNavegacaoDeslogado,
   },
   computed: {
     usuarioLogado() {
