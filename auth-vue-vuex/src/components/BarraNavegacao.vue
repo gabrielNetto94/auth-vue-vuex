@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     usuarioLogado() {
-      return Boolean(localStorage.getItem("token"));
+      return Boolean(this.$store.state.token);
     },
   },
 };
