@@ -11,13 +11,13 @@
         <input type="password" class="form-control" v-model="usuario.senha" />
       </div>
       <button type="submit" class="btn btn-primary brn-block">Logar</button>
-
-      <router-link :to="{ name: 'novo.usuario' }">
-        Não possui um cadastro, cadastre-se aqui!
-      </router-link>
+      <router-link :to="{ name: 'novo.usuario' }"
+        >Não possui um cadastro, cadastre-se aqui!</router-link
+      >
     </form>
   </div>
-</template> 
+</template>
+
 <script>
 export default {
   data() {
@@ -27,23 +27,10 @@ export default {
   },
   methods: {
     efetuarLogin() {
-      //acessa a varíavel global $http setada no main.js
-      this.$http
-        .post("auth/login", this.usuario)
-        .then((response) => {
-          console.log(response);
-
-          this.$store
-            .dispatch("efetuarLogin", this.usuario)
-            .then(() => this.$$router.push({ name: "gerentes" }));
-
-          this.$router.push({ name: "gerentes" });
-        })
-        .catch((erro) => console.log(erro));
+      this.$store
+        .dispatch("efetuarLogin", this.usuario)
+        .then(() => this.$router.push({ name: "gerentes" }));
     },
   },
 };
 </script>
-
-<style>
-</style>
