@@ -4,7 +4,7 @@ import Gerentes from '../views/Gerentes.vue'
 import Home from '../views/Home.vue'
 //import NovoUsuario from '../views/NovoUsuario.vue'
 import Login from '../views/Login.vue';
-import provedor from '@/provedor';
+import store from '@/store';
 
 Vue.use(VueRouter)
 
@@ -46,7 +46,7 @@ const router = new VueRouter({
 //antes de cada rota testa se a rota é pública ou privada
 router.beforeEach((routeTo, routeFrom, next) => {
   //se rota não for publica e não tiver token
-  if (!routeTo.meta.publica && !provedor.state.token) {
+  if (!routeTo.meta.publica && !store.state.token) {
 
     //manda pra login
     return next({ path: '/login' })
