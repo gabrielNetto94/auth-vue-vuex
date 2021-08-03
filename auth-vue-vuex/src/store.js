@@ -20,22 +20,25 @@ const mutations = {
     }
 }
 
+const getters = {
+    usuarioEstaLogado: state => Boolean(state.token)
+}
 
 const actions = {
     //desestrutura o objeto e pega apenas o commit
     efetuarLogin({ commit }, usuario) {
         return new Promise((resolve, reject) => {
             http.post('auth/login', usuario)
-            .then(response => {
-                commit("DEFINIR_USUARIO_LOGADO", {
-                    token: response.data.access_token,
-                    usuario: response.data.user,
-                });
-                resolve(response.data);
-            }).catch(err => {
-                console.log(err);
-                reject(err);
-            })
+                .then(response => {
+                    commit("DEFINIR_USUARIO_LOGADO", {
+                        token: response.data.access_token,
+                        usuario: response.data.user,
+                    });
+                    resolve(response.data);
+                }).catch(err => {
+                    console.log(err);
+                    reject(err);
+                })
         });
     }
 }
@@ -43,5 +46,6 @@ const actions = {
 export default new Vuex.Store({
     state: estado,
     mutations,
-    actions
+    actions,
+    getters
 })
